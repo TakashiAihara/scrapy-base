@@ -22,7 +22,7 @@ services:
     image: python:3.9-alpine
     volumes:
       - python3.9_packages:/usr/local/lib/python3.9/dist-packages
-    command: pip3 install scrapy selenium pymongo scrapy-tor-proxy-rotation scrapy-redis scrapy-splash scrapy-fake-useragent
+    command: pip3 install ${PYTHON_PACKAGES}
   scrapyd:
     build:
       context: 'https://github.com/EasyPi/docker-scrapyd.git'
