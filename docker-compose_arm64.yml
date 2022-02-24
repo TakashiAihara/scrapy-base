@@ -2,13 +2,18 @@ version: "3.9"
 
 services:
   torproxy:
-    build:
-      context: 'https://github.com/dperson/torproxy.git'
-      dockerfile: Dockerfile.aarch64
-    ports:
-      - "8118:8118"
-      - "9050:9050"
-      - "9051:9051"
+    image: dperson/torproxy:aarch64
+    # build:
+    #   context: https://github.com/dperson/torproxy.git
+    #   dockerfile: Dockerfile.aarch64
+    expose:
+      - "8118"
+      - "9050"
+      - "9051"
+    # ports:
+    #   - "8118:8118"
+    #   - "9050:9050"
+    #   - "9051:9051"
     environment:
     - BW=1000
     - TZ=Asia/Tokyo
@@ -21,6 +26,7 @@ services:
   scrapyd:
     build:
       context: 'https://github.com/EasyPi/docker-scrapyd.git'
+      # context: 'https://github.com/vimagick/dockerfiles.git#:scrapyd'
       dockerfile: Dockerfile
     ports:
       - "6800:6800"
@@ -28,6 +34,8 @@ services:
       - scrapyd_data:/var/lib/scrapyd
       - python3.9_packages:/usr/local/lib/python3.9/dist-packages
     restart: unless-stopped
+    environment:
+    - TZ=Asia/Tokyo
 #  scrapyrt:
 #    build:
 #      context: https://github.com/EasyPi/docker-scrapyd.git
