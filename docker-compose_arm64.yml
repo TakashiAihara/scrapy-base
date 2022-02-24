@@ -19,9 +19,9 @@ services:
     - TZ=Asia/Tokyo
     restart: unless-stopped
   packager:
-    image: arm64v8/python:3.9
+    image: arm64v8/python:${PYTHON_VERSION}
     volumes:
-      - python3.9_packages:/usr/local/lib/python3.9/dist-packages
+      - python_packages:/usr/local/lib/python${PYTHON_VERSION}/dist-packages
     command: pip3 install ${PYTHON_PACKAGES}
   scrapyd:
     build:
@@ -32,7 +32,7 @@ services:
       - "6800:6800"
     volumes:
       - scrapyd_data:/var/lib/scrapyd
-      - python3.9_packages:/usr/local/lib/python3.9/dist-packages
+      - python_packages:/usr/local/lib/python${PYTHON_VERSION}/dist-packages
     restart: unless-stopped
     environment:
     - TZ=Asia/Tokyo
@@ -46,5 +46,5 @@ services:
 #    restart: unless-stopped
 
 volumes:
-  python3.9_packages:
+  python_packages:
   scrapyd_data:
