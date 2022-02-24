@@ -1,0 +1,3 @@
+[submodule "torproxy"]
+	path = torproxy
+	url = https://github.com/dperson/torproxy.git
