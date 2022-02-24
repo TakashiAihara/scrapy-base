@@ -1,0 +1,42 @@
+version: "3.9"
+
+services:
+  torproxy:
+    build:
+      context: 'https://github.com/dperson/torproxy.git#'
+      dockerfile: Dockerfile.aarch64
+    ports:
+      - "8118:8118"
+      - "9050:9050"
+      - "9051:9051"
+    environment:
+    - BW=1000
+    - TZ=Asia/Tokyo
+    restart: unless-stopped
+  packager:
+    image: arm64v8/python:3.9
+    volumes:
+      - python3.9_packages:/usr/local/lib/python3.9/dist-packages
+    command: pip3 install scrapy selenium pymongo scrapy-tor-proxy-rotation scrapy-redis scrapy-splash scrapy-fake-useragent
+  scrapyd:
+    build:
+      context: 'https://github.com/EasyPi/docker-scrapyd.git#'
+      dockerfile: Dockerfile
+    ports:
+      - "6800:6800"
+    volumes:
+      - scrapyd_data:/var/lib/scrapyd
+      - python3.9_packages:/usr/local/lib/python3.9/dist-packages
+    restart: unless-stopped
+#  scrapyrt:
+#    build:
+#      context: 'https://github.com/EasyPi/docker-scrapyd.git#'
+#      dockerfile: Dockerfile
+#    command: scrapyrt -i 0.0.0.0 -p 9080
+#    ports:
+#      - "9080:9080"
+#    restart: unless-stopped
+
+volumes:
+  python3.9_packages:
+  scrapyd_data:
