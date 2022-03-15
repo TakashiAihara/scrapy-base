@@ -20,7 +20,7 @@ services:
       - PASSWORD=${TOR_PASSWORD}
     restart: unless-stopped
   packager:
-    image: python:${PYTHON_VERSION}-alpine
+    image: python:${PYTHON_VERSION}-slim
     volumes:
       - python_packages:/usr/local/lib/python${PYTHON_VERSION}/dist-packages
     command: pip3 install ${PYTHON_PACKAGES}
