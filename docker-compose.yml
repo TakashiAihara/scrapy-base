@@ -33,6 +33,7 @@ services:
     volumes:
       - scrapyd_data:/var/lib/scrapyd
       - python_packages:/usr/local/lib/python${PYTHON_VERSION}/dist-packages
+      - ./scrapyd.conf:/etc/scrapyd/scrapyd.conf:ro
     restart: unless-stopped
     environment:
       - TZ=Asia/Tokyo
