@@ -17,6 +17,7 @@ services:
     environment:
     - BW=1000
     - TZ=Asia/Tokyo
+    - PASSWORD=${TOR_PASSWORD}
     restart: unless-stopped
   packager:
     image: arm64v8/python:${PYTHON_VERSION}
